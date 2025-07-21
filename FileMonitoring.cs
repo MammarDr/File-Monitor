@@ -19,20 +19,23 @@ namespace File_Monitoring_Windows_Service
         private string targetDirectory;
         private string observableDirectory;
 
-        public FileMonitoring()
+       public FileMonitoring()
         {
             InitializeComponent();
-
+        
             observableDirectory = ConfigurationManager.AppSettings["observableDirectory"];
-
-            if (!Directory.Exists(observableDirectory))
-                Directory.CreateDirectory(observableDirectory);
-
+        
             targetDirectory = ConfigurationManager.AppSettings["targetDirectory"];
-
-            if(!Directory.Exists(targetDirectory)) 
-                Directory.CreateDirectory(targetDirectory);
-
+        
+            if (string.IsNullOrEmpty(observableDirectory))
+                observableDirectory = "C:\\CodingEnviorenment\\File Monitoring";
+        
+            if (string.IsNullOrEmpty(targetDirectory))
+                targetDirectory = "C:\\CodingEnviorenment\\File Monitoring\\TargetDirectory";
+        
+            Directory.CreateDirectory(observableDirectory);
+            Directory.CreateDirectory(targetDirectory);
+        
             _watcher = new FileSystemWatcher(observableDirectory, "*.*");
             _watcher.NotifyFilter = NotifyFilters.FileName;
             _watcher.Created += OnNewFileDetected;
