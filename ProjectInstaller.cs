@@ -32,7 +32,9 @@ namespace File_Monitoring_Windows_Service
 
                 Description = "a Service that monitor folder for any new files then transfer them to a specific folder.",
 
-                StartType = ServiceStartMode.Automatic
+                StartType = ServiceStartMode.Automatic,
+
+                ServicesDependedOn = new string[] {"RpcSs", "EventLog", "LanmanWorkstation"}
             };
 
             Installers.Add(serviceProcessInstaller);
