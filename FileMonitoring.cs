@@ -79,9 +79,7 @@ namespace File_Monitoring_Windows_Service
 
             try
             {
-                File.Copy(filePath, targetPath, true);
-
-                File.Delete(filePath);
+                File.Move(filePath, targetPath);
 
                 Log($"'{fileName}' File has been Transfered", EventLogEntryType.Information);
             }
